@@ -1,0 +1,10 @@
+{
+    "islogin":true,
+    "title": "基本人物",
+    "list":[
+        {"name":"A","age":20,"discript":"a","src": "images/news1.png"},
+        {"name":"B","age":21,"discript":"b","src": "images/news2.png"},
+        {"name":"C","age":22,"discript":"c","src": "images/news3.png"},
+        {"name":"D","age":23,"discript":"d","src": "images/news4.jpg"}
+    ]
+}

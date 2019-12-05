@@ -1,0 +1,82 @@
+<!-- 
+    {{if}}{{/if}}用来判断
+    {{each}}{{/each}}循环
+    {{ 变量 }}
+    {{ $变量 }} 会计算值 
+-->
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>basic-demo</title>
+<script src="template-web.js"></script>
+</head>
+
+<body>
+<div id="content"></div>
+<script id="test" type="text/html">
+{{if isAdmin}}
+
+<h1>{{title}}</h1>
+<ul>
+    {{each list value i}}
+        <li>索引 {{i + 1}} ：{{value}}</li>
+    {{/each}}
+</ul>
+
+{{/if}}
+
+{{$data}}
+</script>
+<script>
+var data = {
+	title: '基本例子',
+	isAdmin: true,
+	list: ['文艺', '博客', '摄影', '电影', '民谣', '旅行', '吉他']
+};
+var html = template('test', data);
+document.getElementById('content').innerHTML = html;
+</script>
+
+
+
+
+<div id="app"></div>
+<script id="applist" type="text/html">
+    {{ if islogin}}
+    <h1>{{title}}</h1>
+    <ol>
+        {{ each list2 value index}}
+        <li>
+            <p>姓名：{{ value.name }}</p>
+            <p>年龄：{{ value.age }}</p>
+            <p>索引：{{ index }}</p>
+        </li>
+        {{/each}}
+    </ol>
+    {{/if}}
+
+    <ul>
+        <li>{{$data}}</li>
+    </ul>
+
+</script>
+
+<script type="text/javascript">
+    var data2 = {
+        islogin: true,
+        title: '基本人物',
+        list2:[
+            {name:'a',age:18},
+            {name:'b',age:18},
+            {name:'c',age:22},
+            {name:'d',age:28}
+        ]
+    }
+
+    var html2 = template('applist',data2)
+    document.getElementById('app').innerHTML = html2
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<script src="/jquery-1.11.3.min.js"></script>
+<script src="/template-web.js"></script>
+<body>
+    <div id="app"></div>
+    <script id="ajax" type="text/html">
+        {{if islogin}}
+        <h1>{{title}}</h1>
+        <ol>
+            {{each list value index}}
+            <li>
+                <p>姓名：{{value.name}}</p>
+                <p>年龄：{{value.age}}</p>
+                <p>描述：{{value.discript}}</p>
+                <p>索引：{{index}}</p>
+                <img src="{{value.src}}" alt="">
+            </li>
+            {{/each}}
+        </ol>
+      {{/if}}
+        <button onclick="{{islogin = !islogin}}">{{islogin}}</button>
+    </script>
+    <script>
+        $.ajax({
+            url: "./data.json",
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                
+                var html = template("ajax",data)
+                document.getElementById("app").innerHTML = html
+            }
+        })
+    </script>
+</body>
+</html>
+

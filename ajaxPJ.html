@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+
+</html>
+<script src="jquery-1.11.3.min.js"></script>
+<script>
+    $.ajax({
+        url: "./data.json",
+        type: "get",
+        dataType: "json",
+        success: function(data) {
+            //字符串拼接
+            var html2 = '<h1>'+data.title+'</h1>'
+            var html3 = '<ol id="olist"></ol>'
+            var html4 = ''
+            for(var i = 0 ; i < data.list.length; i++) {
+                html4 += '<li><p>'+data.list[i].name+'</p><p>'+data.list[i].age+'</p><p>'+data.list[i].discript+'</p></li>' 
+            }
+            html2 += html3
+            document.getElementById('app').innerHTML = html2
+            $('#olist').append(html4);
+        }
+    })
+</script>
+<!-- <script>
+    $.ajax({
+        url: "./data.json",
+        type: "get",
+        dataType: "json",
+        success: function (data) {
+            // ES6模板字符串
+            let template = `
+                <h1>${data.title}</h1>
+                <ol>
+                    <% for(let i=0; i < data.list.length; i++) { %>
+                        <li>
+                            <p><%= data.list[i].name %></p>
+                            <p><%= data.list[i].age %></p>
+                            <p><%= data.list[i].discript %></p>
+                            <p><%= i %></p>
+                        </li>
+                    <% } %>
+                </ol>
+            `
+            let parse = eval(compile(template));
+            document.getElementById('app').innerHTML = parse({ list: data.list });
+        }
+    })
+    function compile(template){
+        const evalExpr = /<%=(.+?)%>/g;
+        const expr = /<%([\s\S]+?)%>/g;
+
+        template = template
+            .replace(evalExpr, '`); \n  echo( $1 ); \n  echo(`')
+            .replace(expr, '`); \n $1 \n  echo(`');
+
+        template = 'echo(`' + template + '`);';
+
+        let script =
+        `(function parse(data){
+            let output = "";
+
+            function echo(html){
+                output += html;
+            }
+            ${ template }
+            return output;
+        })`;
+
+        return script;
+    }
+</script> -->
